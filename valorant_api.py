@@ -23,13 +23,13 @@ async def run(username, password):
             "https://auth.riotgames.com/api/v1/authorization", json=data
         ) as r:
             data = await r.json()
-        # print(data)
+         print(data)
         pattern = re.compile(
             "access_token=((?:[a-zA-Z]|\d|\.|-|_)*).*id_token=((?:[a-zA-Z]|\d|\.|-|_)*).*expires_in=(\d*)"
         )
         data = pattern.findall(data["response"]["parameters"]["uri"])[0]
         access_token = data[0]
-        # print('Access Token: ' + access_token)
+         print('Access Token: ' + access_token)
         id_token = data[1]
         expires_in = data[2]
 
@@ -43,14 +43,14 @@ async def run(username, password):
         ) as r:
             data = await r.json()
         entitlements_token = data["entitlements_token"]
-        # print('Entitlements Token: ' + entitlements_token)
+         print('Entitlements Token: ' + entitlements_token)
 
         async with session.post(
             "https://auth.riotgames.com/userinfo", headers=headers, json={}
         ) as r:
             data = await r.json()
         user_id = data["sub"]
-        # print('User ID: ' + user_id)
+         print('User ID: ' + user_id)
         headers["X-Riot-Entitlements-JWT"] = entitlements_token
         await session.close()
 
@@ -71,7 +71,7 @@ async def parse_stats(user_id, headers, num_matches=3):
                 data = json.loads(await r.text())
 
             matches = data["Matches"]
-            # print(matches)
+             print(matches)
 
             DATA = {}
             count = 0
@@ -127,7 +127,7 @@ async def get_rank(user_id, headers):
                 f"https://pd.na.a.pvp.net/mmr/v1/players/{user_id}", headers=headers
             ) as r:
                 data = json.loads(await r.text())
-            # print(data)
+             print(data)
             competitive = data["QueueSkills"]["competitive"]
             rank_tier = competitive["CompetitiveTier"]
             ranked_rating = competitive["TierProgress"]
@@ -176,7 +176,7 @@ async def match_data(user_id, headers, match_id):
                 headers=headers,
             ) as r:
                 data = json.loads(await r.text())
-            # print(data)
+             print(data)
             MATCH_DATA = {}
             PLAYER_DATA = {}
 
