@@ -236,7 +236,7 @@ async def match(ctx, user=None):
 async def format_match(user_id):
     player_id = db.get_player_id(user_id)
     player_name = db.get_player_name(user_id)
-    # match_id = db.get_match_id(user_id)
+    match_id = db.get_match_id(user_id)
 
     if player_id:
         with open("headers.json", "r") as data:
@@ -419,7 +419,7 @@ async def graph(id):
     segments_x = np.r_[x[0], x[1:-1].repeat(2), x[-1]].reshape(-1, 2)
     segments_y = np.r_[y[0], y[1:-1].repeat(2), y[-1]].reshape(-1, 2)
 
-    # Assign colors to the line segments
+    # Assign colours to the line segments
     linecolors = ["green" if y_[0] < y_[1] else "red" for y_ in segments_y]
 
     segments = [list(zip(x_, y_)) for x_, y_ in zip(segments_x, segments_y)]
